@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Validator;
 use App\Models\Tweet;
 
-
+use Auth;
 
 class TweetController extends Controller
 {
@@ -75,6 +75,10 @@ class TweetController extends Controller
         // dd($result->getOriginal());
         // dd($request);
         
+         //フォームから送信されてきたデータとユーザIDをマージし，DBにinsertする
+        $data = $request->merge(['user_id' => Auth::user()->id])->all();
+        $result = Tweet::create($data);
+    
         // ルーティング「tweet.index」にリクエスト送信（一覧ページに移動）
         return redirect()->route('tweet.index');
         

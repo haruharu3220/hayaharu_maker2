@@ -34,6 +34,7 @@
                     <!-- 更新ボタン -->
                     <!-- 削除ボタン -->
                     
+                      <!--＠method delete を記述することで，DELETE メソッドで送信できる-->
                      <form action="{{ route('tweet.destroy',$tweet->id) }}" method="POST" class="text-left">
                       @method('delete')
                       @csrf
