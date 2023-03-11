@@ -35,6 +35,7 @@ class TweetController extends Controller
     {
         //
         return response()->view('tweet.create');
+        
 
     }
 
@@ -50,6 +51,21 @@ class TweetController extends Controller
     //フォームから送信されたデータをデータベースに保存するためのアクションである、コントローラーのstoreメソッド
     public function store(Request $request)
     {
+        $tweet = new tweet();
+        $tweet -> tweet = request() -> tweet;
+        $tweet -> description = request() -> description;
+        $tweet -> user_id = Auth::user() -> id;
+        
+        if(request('image')){
+            $original = request()->file("image")->getClientOriginalName();
+            $name = date("Ymd_His")."_".$original;
+            request() ->file("image")->move("storage/image",$name);
+            $tweet -> image = $name;
+        }
+        []
+        $tweet-> save();
+    
+        
         // バリデーション
         $validator = Validator::make($request->all(), [
             'tweet' => 'required | max:191',
@@ -67,15 +83,15 @@ class TweetController extends Controller
         // create()は最初から用意されている関数で
         //データベースに登録することができる
         // 戻り値は挿入されたレコードの情報
-        $result = Tweet::create($request->all());
+        // $result = Tweet::create($request->all());
         
         // dd($result);
         // dd($result->getOriginal());
         // dd($request);
         
          //フォームから送信されてきたデータとユーザIDをマージし，DBにinsertする
-        $data = $request->merge(['user_id' => Auth::user()->id])->all();
-        $result = Tweet::create($data);
+        // $data = $request->merge(['user_id' => Auth::user()->id])->all();
+        // $result = Tweet::create($data);
     
         // ルーティング「tweet.index」にリクエスト送信（一覧ページに移動）
         return redirect()->route('tweet.index');
@@ -106,6 +122,8 @@ class TweetController extends Controller
     public function edit($id)
     {
         //
+        $tweet = Tweet::find($id);
+        return response()->view('tweet.edit', compact('tweet'));
     }
 
     /**
