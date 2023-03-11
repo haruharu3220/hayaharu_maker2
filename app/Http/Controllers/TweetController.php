@@ -50,8 +50,6 @@ class TweetController extends Controller
     //フォームから送信されたデータをデータベースに保存するためのアクションである、コントローラーのstoreメソッド
     public function store(Request $request)
     {
-        
-  
         // バリデーション
         $validator = Validator::make($request->all(), [
             'tweet' => 'required | max:191',
@@ -131,5 +129,7 @@ class TweetController extends Controller
     public function destroy($id)
     {
         //
+        $result = Tweet::find($id)->delete();
+        return redirect()->route('tweet.index');
     }
 }

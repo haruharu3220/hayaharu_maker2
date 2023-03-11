@@ -25,5 +25,11 @@ class Tweet extends Model
     {
         return self::orderBy('updated_at', 'desc')->get();
     }
+    
+    
+    //1(tweet)対多(Photo)のデータ連携
+    public function tweetPhotos(){
+        return $this->hasMany(Photo::class);
+    }
   
 }
