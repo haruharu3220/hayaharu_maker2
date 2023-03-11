@@ -20,7 +20,9 @@ class TweetController extends Controller
     public function index()
     {
         //Tweetフォルダのindexファイルを開く
-        $tweets = [];
+        //Tweetモデルで作成したgetAllOrderByUpdated_at関数を実行
+        $tweets = Tweet::getAllOrderByUpdated_at();;
+        // dd($tweets);
         return response()->view('tweet.index',compact('tweets'));
     }
 
@@ -48,6 +50,8 @@ class TweetController extends Controller
     //フォームから送信されたデータをデータベースに保存するためのアクションである、コントローラーのstoreメソッド
     public function store(Request $request)
     {
+        
+  
         // バリデーション
         $validator = Validator::make($request->all(), [
             'tweet' => 'required | max:191',
@@ -87,6 +91,8 @@ class TweetController extends Controller
     public function show($id)
     {
         //
+        $tweet = Tweet::find($id);
+        return response()->view('tweet.show', compact('tweet'));
     }
 
     /**

@@ -20,29 +20,22 @@
               <x-text-input id="tweet" class="block mt-1 w-full" type="text" name="tweet" :value="old('tweet')" required autofocus />
               <x-input-error :messages="$errors->get('tweet')" class="mt-2" />
             </div>
-            
-            <!--テスト用-->
-            <div class="flex flex-col mb-4">
-              <x-input-label for="tweetTest" :value="__('TweetTest')" />
-              <x-text-input id="tweetTest" class="block mt-1 w-full" type="text" name="tweetTest" :value="old('tweetTest')" required autofocus />
-              <x-input-error :messages="$errors->get('tweet')" class="mt-2" />
-            </div>
-            
-            
-            
-            <div class="flex flex-col mb-4">
-              <x-input-label for="picture" :value="__('Picture')" />
-              <!--<x-text-input id="picture" class="block mt-1 w-full" type="file" name="picture" :value="old('picture')" required autofocus />-->
-              <input type="file" accept='image/*' name="picture" onchange="previewImage(this);">
-              <x-input-error :messages="$errors->get('tweet')" class="mt-2" />
-            </div>
-            
-        
+          
             <div class="flex flex-col mb-4">
               <x-input-label for="description" :value="__('Description')" />
               <x-text-input id="description" class="block mt-1 w-full" type="text" name="description" :value="old('description')" required autofocus />
               <x-input-error :messages="$errors->get('description')" class="mt-2" />
             </div>
+
+            <div class="flex flex-col mb-4">
+              <x-input-label for="picture" :value="__('Picture')" />
+              <!--<x-text-input id="picture" class="block mt-1 w-full" type="file" name="picture" :value="old('picture')" required autofocus />-->
+              <input type="file" accept='image/*' name="picture[]" multiple onchange="previewImage(this);">
+              <x-input-error :messages="$errors->get('tweet')" class="mt-2" />
+            </div>
+            
+
+
             <div class="flex items-center justify-end mt-4">
               <x-primary-button class="ml-3">
                 {{ __('投稿') }}
