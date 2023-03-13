@@ -1,6 +1,5 @@
 <x-guest-layout>
-    <!--<form method="POST" action="{{ route('register') }}">.既存の記載-->
-    <form method="POST" action="{{ route('teamRegister') }}">    
+    <form method="POST" action="{{ route('register') }}">
         @csrf
 
         <!-- Name -->
