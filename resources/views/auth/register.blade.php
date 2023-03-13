@@ -1,5 +1,6 @@
 <x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
+    <!--<form method="POST" action="{{ route('register') }}">.既存の記載-->
+    <form method="POST" action="{{ route('teamRegister') }}">    
         @csrf
 
         <!-- Name -->
@@ -45,7 +46,7 @@
             </a>
 
             <x-primary-button class="ml-4">
-                {{ __('Register') }}
+                {{ __('登録') }}
             </x-primary-button>
         </div>
     </form>
