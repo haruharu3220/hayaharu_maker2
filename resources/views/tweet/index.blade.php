@@ -3,7 +3,7 @@
 <x-app-layout>
   <x-slot name="header">
     <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-      {{ __('Tweet Index') }}
+      {{ __('イエツク！！') }}
     </h2>
   </x-slot>
 
@@ -14,7 +14,7 @@
           <table class="text-center w-full border-collapse">
             <thead>
               <tr>
-                <th class="py-4 px-6 bg-gray-lightest dark:bg-gray-darkest font-bold uppercase text-lg text-gray-dark dark:text-gray-200 border-b border-grey-light dark:border-grey-dark">tweet</th>
+                <th class="py-4 px-6 bg-gray-lightest dark:bg-gray-darkest font-bold uppercase text-lg text-gray-dark dark:text-gray-200 border-b border-grey-light dark:border-grey-dark">投稿</th>
               </tr>
             </thead>
             <tbody>
@@ -22,13 +22,18 @@
               <tr class="hover:bg-gray-lighter">
                 <td class="py-4 px-6 border-b border-gray-light dark:border-gray-600">
                   
+                  
+                  <img src="{{ asset('storage/image/'.$tweet->image)}}"　class="mx-auto" style="height:300px;">
                   <!--指定のツイートの詳細ページに飛ぶ-->
                   <a href="{{ route('tweet.show',$tweet->id) }}">
-                    <img src="{{ asset('storage/image/'.$tweet->image)}}"　class="mx-auto" style="height:300px;">
-
-                    <h3 class="text-left font-bold text-lg text-gray-dark dark:text-gray-200">{{$tweet->id}}</h3>
-                    <h3 class="text-left font-bold text-lg text-gray-dark dark:text-gray-200">{{$tweet->tweet}}</h3>
+                  <a href="{{ route('tweet.show',$tweet->id) }}" >
+                  
+                  <div class="flex">
                     <h3 class="text-left font-bold text-lg text-gray-dark dark:text-gray-200">{{$tweet->created_at}}</h3>
+                    <h3 class="text-left font-bold text-lg text-gray-dark dark:text-gray-200">　　{{$tweet->user_name}}</h3>
+                  </div>
+                    
+                    <h3 class="text-left font-bold text-lg text-gray-dark dark:text-gray-200">{{$tweet->tweet}}</h3>
     
                   </a>
                   

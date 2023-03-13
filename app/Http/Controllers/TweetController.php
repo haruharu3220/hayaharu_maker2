@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 
 use Validator;
 use App\Models\Tweet;
+use App\Models\User;
+
 
 use Auth;
 
@@ -22,7 +24,15 @@ class TweetController extends Controller
         //Tweetフォルダのindexファイルを開く
         //Tweetモデルで作成したgetAllOrderByUpdated_at関数を実行
         $tweets = Tweet::getAllOrderByUpdated_at();;
-        // dd($tweets);
+        
+        //tweetテーブルからuser_idを取得し、Userテーブルからnameを探す
+        foreach ($tweets as $tweet) {
+            $user = User::find($tweet->user_id);
+            $tweet->user_name = $user->name;
+        }
+
+    
+        //dd($tweets);
         return response()->view('tweet.index',compact('tweets'));
     }
 
@@ -39,13 +49,6 @@ class TweetController extends Controller
 
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-     
     //create.blade.php から送信されていたデータは $request に入っている．
     //$request->all() とすることで全部(tweetとdescription)取得することができる．
     //フォームから送信されたデータをデータベースに保存するためのアクションである、コントローラーのstoreメソッド
@@ -62,7 +65,7 @@ class TweetController extends Controller
             request() ->file("image")->move("storage/image",$name);
             $tweet -> image = $name;
         }
-        []
+    
         $tweet-> save();
     
         
@@ -95,9 +98,6 @@ class TweetController extends Controller
     
         // ルーティング「tweet.index」にリクエスト送信（一覧ページに移動）
         return redirect()->route('tweet.index');
-        
-        
-        
     }
 
     /**
