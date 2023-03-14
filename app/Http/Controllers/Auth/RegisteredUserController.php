@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 
+
+use Validator;
+
+
 class RegisteredUserController extends Controller
 {
     /**
@@ -46,6 +50,7 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect(RouteServiceProvider::HOME);
+
+        return redirect(RouteServiceProvider::TEAM_CREATE);
     }
 }

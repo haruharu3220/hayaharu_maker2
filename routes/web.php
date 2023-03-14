@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 //ツイートコントローラーを使えるようにする
 use App\Http\Controllers\TweetController;
+use App\Http\Controllers\TeamController;
 
 
 /*
@@ -35,6 +36,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+
+Route::middleware('auth')->group(function () {
+    Route::get('/team/create', [TeamController::class, 'create'])->name('team.create');
+     Route::post('/team/create', [TeamController::class, 'register'])->name('team.create');
+});
 
 
 require __DIR__.'/auth.php';
