@@ -16,9 +16,9 @@
             <x-input-error :messages="$errors->get('familyName')" class="mt-2" />
         </div>
 
-        <!-- familyNameID -->
+        <!-- familyName -->
         <div class="mt-4">
-            <x-input-label for="familyID" :value="__('familyID')" />
+            <x-input-label for="familyID" :value="__('familyName')" />
             <x-text-input id="familyID" class="block mt-1 w-full" type="text" name="familyID" :value="old('familyID')" required autocomplete="familyID" />
             <x-input-error :messages="$errors->get('familyID')" class="mt-2" />
         </div>
