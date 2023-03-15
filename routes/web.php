@@ -3,10 +3,10 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-//ツイートコントローラーを使えるようにする
+//コントローラーを使えるようにする
 use App\Http\Controllers\TweetController;
 use App\Http\Controllers\TeamController;
-
+use App\Http\Controllers\FavoriteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +22,8 @@ use App\Http\Controllers\TeamController;
 //Tweet用の一括ルーティング
 Route::middleware('auth')->group(function () {
     Route::resource('tweet', TweetController::class);
+    Route::post('tweet/{tweet}/favorites', [FavoriteController::class, 'store'])->name('favorites');
+    Route::post('tweet/{tweet}/unfavorites', [FavoriteController::class, 'destroy'])->name('unfavorites');
 });
 
 

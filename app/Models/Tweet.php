@@ -31,5 +31,10 @@ class Tweet extends Model
     public function tweetPhotos(){
         return $this->hasMany(Photo::class);
     }
+    
+    public function users()
+    {
+        return $this->belongsToMany(User::class)->withTimestamps();
+    }
   
 }
