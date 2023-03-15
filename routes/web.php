@@ -18,8 +18,11 @@ use App\Http\Controllers\TeamController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+//ログインしていないユーザはアプリケーションにアクセスできないようにする
 //Tweet用の一括ルーティング
-Route::resource('tweet', TweetController::class);
+Route::middleware('auth')->group(function () {
+    Route::resource('tweet', TweetController::class);
+});
 
 
 Route::get('/', function () {
