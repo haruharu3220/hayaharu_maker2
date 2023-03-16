@@ -47,4 +47,17 @@ class User extends Authenticatable
     public function posts(){
         return $this->hasMany('App\Post');
     }
+    
+    
+    public function team()
+    {
+        return $this->belongsTo(Team::class);
+    }
+    
+    public function tweets()
+    {
+        return $this->belongsToMany(Tweet::class)->withTimestamps();
+    }
+    
+    
 }

@@ -3,9 +3,10 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-//ツイートコントローラーを使えるようにする
+//コントローラーを使えるようにする
 use App\Http\Controllers\TweetController;
-
+use App\Http\Controllers\TeamController;
+use App\Http\Controllers\FavoriteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,8 +18,13 @@ use App\Http\Controllers\TweetController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+//ログインしていないユーザはアプリケーションにアクセスできないようにする
 //Tweet用の一括ルーティング
-Route::resource('tweet', TweetController::class);
+Route::middleware('auth')->group(function () {
+    Route::resource('tweet', TweetController::class);
+    Route::post('tweet/{tweet}/favorites', [FavoriteController::class, 'store'])->name('favorites');
+    Route::post('tweet/{tweet}/unfavorites', [FavoriteController::class, 'destroy'])->name('unfavorites');
+});
 
 
 Route::get('/', function () {
@@ -35,6 +41,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+
+Route::middleware('auth')->group(function () {
+    Route::get('/team/create', [TeamController::class, 'create'])->name('team.create');
+     Route::post('/team/create', [TeamController::class, 'register'])->name('team.create');
+});
 
 
 require __DIR__.'/auth.php';
