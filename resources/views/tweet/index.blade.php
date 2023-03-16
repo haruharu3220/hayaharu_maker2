@@ -30,6 +30,11 @@
                   </div>
                   
                   <img src="{{ asset('storage/image/'.$tweet->image)}}"　class="mx-auto" style="height:300px;">
+                  
+                  <!--タグを表示-->
+                  <h3 class="text-left font-bold text-lg text-gray-dark dark:text-gray-200">　　{{$tweet->description}}</h3>
+                  
+                  
                   <!--指定のツイートの詳細ページに飛ぶ-->
                   <a href="{{ route('tweet.show',$tweet->id) }}">
                   
