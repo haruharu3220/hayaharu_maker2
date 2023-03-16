@@ -35,6 +35,9 @@
         <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
         <div class="p-6 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-800 ">
           @include('common.errors')
+          
+          
+          <!--フォーム開始-->
           <form class="mb-6" action="{{ route('tweet.update',$tweet->id) }}" method="POST">
             @method('put')
             @csrf
@@ -53,25 +56,24 @@
               <x-text-input id="description" class="block mt-1 w-full" type="text" name="description" value="{{$tweet->description}}" autofocus />
               <x-input-error :messages="$errors->get('description')" class="mt-2" />
             </div>
-            <p class="test">testボタン</p>
+ 
+            <!--Tags-->
+            <select class="select2 html" name="tags[]"  style="width: 250px" multiple>
+                <option value="a">キッチン</option>
+                <option value="b">リビング</option>
+                <option value="c">風呂</option>
+                <option value="d">洗面</option>
+                <option value="e">和室</option>
+                <!--<option value="a">寝室</option>-->
+                <!--<option>子供部屋</option>-->
+                <!--<option>書斎</option>-->
+            </select>
             <script>
-              //ここに処理をかく
+              $(".select2.html").select2({
+                placeholder: "タグを選択"
+              });
             </script>
-              <select class="select2 html" style="width: 250px" multiple>
-                <option>キッチン</option>
-                <option>リビング</option>
-                <option>風呂</option>
-                <option>洗面</option>
-                <option>和室</option>
-                <option>寝室</option>
-                <option>子供部屋</option>
-                <option>書斎</option>
-              </select>
-          <script>
-          $(".select2.html").select2({
-            placeholder: "タグを選択"
-          });
-          </script>
+            
             <!--画像-->
             <img src="{{ asset('storage/image/'.$tweet->image)}}"　class="mx-auto" style="height:300px;">
             
