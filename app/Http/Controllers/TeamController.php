@@ -26,12 +26,12 @@ class TeamController extends Controller
         // dd($request->familyID);
         // dd(Auth::id());
         // バリデーションルールを定義
-        $rules = [
-            'made_id' => ['required', 'unique:teams'],
-        ];
+        // $rules = [
+        //     'made_id' => ['required', 'unique:teams'],
+        // ];
 
         // バリデーションチェックを実行
-         $request->validate($rules);
+        //  $request->validate($rules);
 
         // チームを登録
         // $team = Team::create([
