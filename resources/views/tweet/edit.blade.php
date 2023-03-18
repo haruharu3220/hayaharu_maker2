@@ -58,15 +58,12 @@
             </div>
  
             <!--Tags-->
-            <select class="select2 html" name="tags[]"  style="width: 250px" multiple>
+            <select class="select2 html block mt-1 w-full" name="tags[]"   multiple>
                 <option value="a">キッチン</option>
                 <option value="b">リビング</option>
                 <option value="c">風呂</option>
                 <option value="d">洗面</option>
                 <option value="e">和室</option>
-                <!--<option value="a">寝室</option>-->
-                <!--<option>子供部屋</option>-->
-                <!--<option>書斎</option>-->
             </select>
             <script>
               $(".select2.html").select2({
