@@ -108,16 +108,21 @@ class TweetController extends Controller
      */
     public function edit($id)
     {
-        //
+
+        // dd($id); ->23
         $tweet = Tweet::find($id);
-        return response()->view('tweet.edit', compact('tweet'));
+        $tags = Tag::where('tweet_id', $id)->get();
+        $tagNames = [];
+        foreach ($tags as $tag) {
+            $tagNames[] = $tag->tag_name; 
+        }
+        return response()->view('tweet.edit', compact('tweet','tagNames'));
     }
 
     
     public function update(Request $request, $id)
     {
         
-        // dd($request);
         //バリデーション
         $validator = Validator::make($request->all(), [
             'tweet' => 'required | max:191',
@@ -143,7 +148,6 @@ class TweetController extends Controller
                 $tag->save();
             }
         }
-        
         
         //データ更新処理
         $result = Tweet::find($id)->update($request->all());
