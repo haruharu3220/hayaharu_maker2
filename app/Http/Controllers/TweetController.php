@@ -22,12 +22,6 @@ class TweetController extends Controller
         //Tweetモデルで作成したgetAllOrderByUpdated_at関数を実行
         $tweets = Tweet::getAllOrderByUpdated_at();;
         
-        // $tagNames = [];
-        // $tags = Tag::get();
-        // foreach ($tags as $tag) {
-        //     $tagNames[] = $tag->tag_name; 
-        // }
-
         //tweetテーブルからuser_idを取得し、Userテーブルからnameを探す
         foreach ($tweets as $tweet) {
             $user = User::find($tweet->user_id);

@@ -33,18 +33,24 @@
                   
                   <!--タグを表示-->
                   <h3 class="text-left font-bold text-lg text-gray-dark dark:text-gray-200">　　{{$tweet->description}}</h3>
-                  @if($tweet->tag_no!=NULL)
-                    @php
-                      $tags = explode(",", $tweet["tag_no"]);
-                    @endphp                  
-                  @endif
+                    @if($tweet->tag_no !=NULL)
+                      @php
+                        $tags = explode(",", $tweet["tag_no"]);
+                      @endphp             
+                    @else
+                      @php
+                        $tags=[];
+                      @endphp    
+                    @endif
                   
                   <div class="flex">
-                    @foreach($tags as $tag)
-                    <button class="h-10 px-6 font-semibold rounded-md border border-slate-200 text-slate-900 mr-4" type="button">
-                      {{$tag}}
-                    </button>
-                    @endforeach
+                    @if(count($tags) > 0)
+                      @foreach($tags as $tag)
+                      <button class="h-10 px-6 font-semibold rounded-md border border-slate-200 text-slate-900 mr-4" type="button">
+                        {{$tag}}
+                      </button>
+                      @endforeach
+                    @endif
                   </div>
                   
                   <!--指定のツイートの詳細ページに飛ぶ-->
