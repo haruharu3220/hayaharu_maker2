@@ -7,20 +7,21 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TweetController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\FavoriteController;
+use App\Http\Controllers\SearchController;
 
 /*
 |--------------------------------------------------------------------------
 | Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
+|--------------------------------------------------------------
+
 */
 //ログインしていないユーザはアプリケーションにアクセスできないようにする
 //Tweet用の一括ルーティング
 Route::middleware('auth')->group(function () {
+    Route::get('/tweet/search/input', [SearchController::class, 'create'])->name('search.input');
+    Route::get('/tweet/search/result', [SearchController::class, 'index'])->name('search.result');
+
+    
     Route::resource('tweet', TweetController::class);
     Route::post('tweet/{tweet}/favorites', [FavoriteController::class, 'store'])->name('favorites');
     Route::post('tweet/{tweet}/unfavorites', [FavoriteController::class, 'destroy'])->name('unfavorites');
