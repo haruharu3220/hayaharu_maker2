@@ -37,12 +37,6 @@
         <div class="p-6 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-800 ">
           @include('common.errors')
           
-          
-
-          
-          
-          
-          
           <!--フォーム開始-->
           <form class="mb-6" action="{{ route('tweet.update',$tweet->id) }}" method="POST">
             @method('put')
@@ -72,11 +66,11 @@
             <!--    <option value="e">和室</option>-->
             <!--</select>-->
             <select class="select2 html block mt-1 w-full" name="tags[]" multiple>
-    <option value="a" {{ in_array('a', $tagNames) ? 'selected' : '' }}>キッチン</option>
-    <option value="b" {{ in_array('b', $tagNames) ? 'selected' : '' }}>リビング</option>
-    <option value="c" {{ in_array('c', $tagNames) ? 'selected' : '' }}>風呂</option>
-    <option value="d" {{ in_array('d', $tagNames) ? 'selected' : '' }}>洗面</option>
-    <option value="e" {{ in_array('e', $tagNames) ? 'selected' : '' }}>和室</option>
+    <option value="キッチン" {{ in_array('キッチン', $tagNames) ? 'selected' : '' }}>キッチン</option>
+    <option value="リビング" {{ in_array('リビング', $tagNames) ? 'selected' : '' }}>リビング</option>
+    <option value="風呂" {{ in_array('風呂', $tagNames) ? 'selected' : '' }}>風呂</option>
+    <option value="洗面" {{ in_array('洗面', $tagNames) ? 'selected' : '' }}>洗面</option>
+    <option value="和室" {{ in_array('和室', $tagNames) ? 'selected' : '' }}>和室</option>
 </select>
             <script>
               $(".select2.html").select2({

@@ -15,25 +15,33 @@ use Auth;
 
 class TweetController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         //Tweetフォルダのindexファイルを開く
         //Tweetモデルで作成したgetAllOrderByUpdated_at関数を実行
         $tweets = Tweet::getAllOrderByUpdated_at();;
         
+        // $tagNames = [];
+        // $tags = Tag::get();
+        // foreach ($tags as $tag) {
+        //     $tagNames[] = $tag->tag_name; 
+        // }
+
         //tweetテーブルからuser_idを取得し、Userテーブルからnameを探す
         foreach ($tweets as $tweet) {
             $user = User::find($tweet->user_id);
             $tweet->user_name = $user->name;
+            
+            $tags = Tag::where('tweet_id', $tweet->id)->get();
+            $tagNames = [];
+            foreach ($tags as $tag) {
+                $tagNames[] = $tag->tag_name;
+            }
+            $tweet->tag_no = implode(',', $tagNames);
         }
-
-    
-        //dd($tweets);
+        
+        // dd($tweets);
         return response()->view('tweet.index',compact('tweets'));
     }
 
@@ -151,7 +159,9 @@ class TweetController extends Controller
         
         //データ更新処理
         $result = Tweet::find($id)->update($request->all());
-            return redirect()->route('tweet.index');
+        return redirect()->route('tweet.index');
+        // return redirect()->view('tweet.index', compact('tweet','tagNames'));    
+            
     }
 
 

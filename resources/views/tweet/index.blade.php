@@ -6,10 +6,10 @@
       {{ __('イエツク！！') }}
     </h2>
   </x-slot>
-
+  
   <div class="py-12">
     <div class="max-w-7xl mx-auto sm:w-10/12 md:w-8/10 lg:w-8/12">
-      <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+      <!--<div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">-->
         <div class="p-6 bg-white dark:bg-gray-800 border-b border-grey-200 dark:border-gray-800">
           <table class="text-center w-full border-collapse">
             <thead>
@@ -33,15 +33,24 @@
                   
                   <!--タグを表示-->
                   <h3 class="text-left font-bold text-lg text-gray-dark dark:text-gray-200">　　{{$tweet->description}}</h3>
+                  @if($tweet->tag_no!=NULL)
+                    @php
+                      $tags = explode(",", $tweet["tag_no"]);
+                    @endphp                  
+                  @endif
                   
+                  <div class="flex">
+                    @foreach($tags as $tag)
+                    <button class="h-10 px-6 font-semibold rounded-md border border-slate-200 text-slate-900 mr-4" type="button">
+                      {{$tag}}
+                    </button>
+                    @endforeach
+                  </div>
                   
                   <!--指定のツイートの詳細ページに飛ぶ-->
                   <a href="{{ route('tweet.show',$tweet->id) }}">
-                  
-
                     <!--投稿内容表示-->
                     <h3 class="text-left font-bold text-lg text-gray-dark dark:text-gray-200">{{$tweet->tweet}}</h3>
-    
                   </a>
                   
                   <div class="flex">
