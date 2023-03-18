@@ -23,20 +23,6 @@ class TeamController extends Controller
     
     public function register(Request $request){
         
-        // dd($request->familyID);
-        // dd(Auth::id());
-        // バリデーションルールを定義
-        // $rules = [
-        //     'made_id' => ['required', 'unique:teams'],
-        // ];
-
-        // バリデーションチェックを実行
-        //  $request->validate($rules);
-
-        // チームを登録
-        // $team = Team::create([
-        //     'made_id' => $request->familyID,
-        // ]);
         $teams = new team();
         $teams -> made_id = $request -> familyID;
         $teams ->save();

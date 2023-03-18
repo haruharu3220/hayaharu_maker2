@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use Validator;
 use App\Models\Tweet;
+use App\Models\Tag;
 use App\Models\User;
 
 
@@ -83,20 +84,6 @@ class TweetController extends Controller
         }
         
         
-        // create()は最初から用意されている関数で
-        //データベースに登録することができる
-        // 戻り値は挿入されたレコードの情報
-        // $result = Tweet::create($request->all());
-        
-        // dd($result);
-        // dd($result->getOriginal());
-        // dd($request);
-        
-         //フォームから送信されてきたデータとユーザIDをマージし，DBにinsertする
-        // $data = $request->merge(['user_id' => Auth::user()->id])->all();
-        // $result = Tweet::create($data);
-    
-        // ルーティング「tweet.index」にリクエスト送信（一覧ページに移動）
         return redirect()->route('tweet.index');
     }
 
@@ -121,14 +108,21 @@ class TweetController extends Controller
      */
     public function edit($id)
     {
-        //
+
+        // dd($id); ->23
         $tweet = Tweet::find($id);
-        return response()->view('tweet.edit', compact('tweet'));
+        $tags = Tag::where('tweet_id', $id)->get();
+        $tagNames = [];
+        foreach ($tags as $tag) {
+            $tagNames[] = $tag->tag_name; 
+        }
+        return response()->view('tweet.edit', compact('tweet','tagNames'));
     }
 
     
     public function update(Request $request, $id)
     {
+        
         //バリデーション
         $validator = Validator::make($request->all(), [
             'tweet' => 'required | max:191',
@@ -141,6 +135,20 @@ class TweetController extends Controller
                 ->withInput()
                 ->withErrors($validator);
         }
+        
+        // tag_tweetテーブルから該当tweet_idのレコードを削除
+        tag::where('tweet_id', $id)->delete();
+    
+        // tagテーブルに新しいタグを登録
+        if (!empty($request->tags)) {
+            foreach ($request->tags as $tag_name) {
+                $tag = new tag();
+                $tag->tweet_id = $id;
+                $tag->tag_name = $tag_name;
+                $tag->save();
+            }
+        }
+        
         //データ更新処理
         $result = Tweet::find($id)->update($request->all());
             return redirect()->route('tweet.index');
@@ -153,4 +161,9 @@ class TweetController extends Controller
         $result = Tweet::find($id)->delete();
         return redirect()->route('tweet.index');
     }
+
+    
+
+
+    
 }

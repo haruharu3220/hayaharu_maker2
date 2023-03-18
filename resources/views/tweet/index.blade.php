@@ -22,17 +22,23 @@
               <tr class="hover:bg-gray-lighter">
                 <td class="py-4 px-6 border-b border-gray-light dark:border-gray-600">
                   
-                  
-                  <img src="{{ asset('storage/image/'.$tweet->image)}}"　class="mx-auto" style="height:300px;">
-                  <!--指定のツイートの詳細ページに飛ぶ-->
-                  <a href="{{ route('tweet.show',$tweet->id) }}">
-                  
                   <div class="flex">
                     <!--投稿日時表示-->
                     <h3 class="text-left font-bold text-lg text-gray-dark dark:text-gray-200">{{$tweet->created_at}}</h3>
                     <!--投稿者表示-->
                     <h3 class="text-left font-bold text-lg text-gray-dark dark:text-gray-200">　　{{$tweet->user_name}}</h3>
                   </div>
+                  
+                  <img src="{{ asset('storage/image/'.$tweet->image)}}"　class="mx-auto" style="height:300px;">
+                  
+                  <!--タグを表示-->
+                  <h3 class="text-left font-bold text-lg text-gray-dark dark:text-gray-200">　　{{$tweet->description}}</h3>
+                  
+                  
+                  <!--指定のツイートの詳細ページに飛ぶ-->
+                  <a href="{{ route('tweet.show',$tweet->id) }}">
+                  
+
                     <!--投稿内容表示-->
                     <h3 class="text-left font-bold text-lg text-gray-dark dark:text-gray-200">{{$tweet->tweet}}</h3>
     
